@@ -1,21 +1,20 @@
-'use client'
+'use client';
 
-import { useState, useRef, useEffect } from 'react'
-
-type Message = {
-  id: string
-  text: string
-  isOwn: boolean
-  timestamp: number
-}
+import { useRef, useState } from 'react';
+import * as Popover from '@radix-ui/react-popover';
+import { Paperclip } from 'lucide-react'; // or your emoji 📎
 
 type InputBarProps = {
-  input: string
-  setInput: React.Dispatch<React.SetStateAction<string>>
-  onSend: () => void
-  onFile: (e: React.ChangeEvent<HTMLInputElement>) => void
-  fileRef: React.RefObject<HTMLInputElement | null>
-}
+  input: string;
+  setInput: React.Dispatch<React.SetStateAction<string>>;
+  onSend: () => void;
+  onFile: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  fileRef: React.RefObject<HTMLInputElement>;
+  onAnalyzeMetrics?: () => void;
+  onCustomerInsights?: () => void;
+  onPlanSprints?: () => void;
+  onGenerateReports?: () => void;
+};
 
 function InputBar({
   input,
@@ -23,7 +22,18 @@ function InputBar({
   onSend,
   onFile,
   fileRef,
+  onAnalyzeMetrics,
+  onCustomerInsights,
+  onPlanSprints,
+  onGenerateReports,
 }: InputBarProps) {
+  const [popoverOpen, setPopoverOpen] = useState(false);
+
+  const handleMenuAction = (action: () => void) => {
+    action();
+    setPopoverOpen(false); // close after selection
+  };
+
   return (
     <div className="mx-auto w-full max-w-4xl">
       <input
@@ -34,24 +44,79 @@ function InputBar({
       />
 
       <div className="flex items-center gap-3 rounded-full border border-zinc-300 bg-white px-5 py-3 shadow-sm dark:border-zinc-700 dark:bg-zinc-800">
+        {/* File button with popover trigger */}
+        <Popover.Root open={popoverOpen} onOpenChange={setPopoverOpen}>
+          <Popover.Trigger asChild>
+            <button
+              type="button"
+              className="text-zinc-500 hover:text-black dark:text-zinc-400 dark:hover:text-white transition-colors"
+              aria-label="Attach file or open analytics menu"
+            >
+              <Paperclip size={20} /> {/* or 📎 */}
+            </button>
+          </Popover.Trigger>
 
-        <button
-          type="button"
-          onClick={() => fileRef.current?.click()}
-          className="text-zinc-500 hover:text-black dark:text-zinc-400"
-        >
-          📎
-        </button>
+          <Popover.Portal>
+            <Popover.Content
+              side="top"
+              align="start"
+              sideOffset={8}
+              className="z-50 w-64 rounded-lg border border-zinc-200 bg-white p-2 shadow-xl dark:border-zinc-700 dark:bg-zinc-900"
+            >
+              <div className="flex flex-col gap-1 text-sm">
+                <button
+                  onClick={() => handleMenuAction(onAnalyzeMetrics || (() => alert('Analyze Metrics clicked')))}
+                  className="flex w-full items-center rounded-md px-3 py-2.5 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-left"
+                >
+                  Analyze Metrics
+                </button>
+                <button
+                  onClick={() => handleMenuAction(onCustomerInsights || (() => alert('Customer Insights clicked')))}
+                  className="flex w-full items-center rounded-md px-3 py-2.5 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-left"
+                >
+                  Customer Insights
+                </button>
+                <button
+                  onClick={() => handleMenuAction(onPlanSprints || (() => alert('Plan Sprints clicked')))}
+                  className="flex w-full items-center rounded-md px-3 py-2.5 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-left"
+                >
+                  Plan Sprints
+                </button>
+                <button
+                  onClick={() => handleMenuAction(onGenerateReports || (() => alert('Generate Reports clicked')))}
+                  className="flex w-full items-center rounded-md px-3 py-2.5 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-left"
+                >
+                  Generate Reports
+                </button>
+              </div>
 
+              {/* Optional separator + classic file upload */}
+              <div className="my-2 border-t border-zinc-200 dark:border-zinc-700" />
+              <button
+                onClick={() => {
+                  fileRef.current?.click();
+                  setPopoverOpen(false);
+                }}
+                className="flex w-full items-center rounded-md px-3 py-2.5 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-left text-blue-600 dark:text-blue-400"
+              >
+                Upload File...
+              </button>
+
+              <Popover.Arrow className="fill-white dark:fill-zinc-900" />
+            </Popover.Content>
+          </Popover.Portal>
+        </Popover.Root>
+
+        {/* Rest of your input + send button */}
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => {
-          if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault()
-            onSend()
-          }
-        }}
+            if (e.key === 'Enter' && !e.shiftKey) {
+              e.preventDefault();
+              onSend();
+            }
+          }}
           placeholder="Type a message..."
           className="flex-1 bg-transparent outline-none"
         />
@@ -59,8 +124,7 @@ function InputBar({
         <button
           onClick={onSend}
           disabled={!input.trim()}
-          className={`flex h-9 w-9 items-center justify-center rounded-full
-          ${
+          className={`flex h-9 w-9 items-center justify-center rounded-full ${
             input.trim()
               ? 'bg-black text-white dark:bg-white dark:text-black'
               : 'bg-zinc-200 text-zinc-400 dark:bg-zinc-700'
@@ -68,13 +132,15 @@ function InputBar({
         >
           ➤
         </button>
-
       </div>
     </div>
-  )
+  );
 }
 
+export default InputBar;
+
 export default function ChatPage() {
+  const router = useRouter()
 
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -171,7 +237,7 @@ export default function ChatPage() {
       <header className="border-b border-zinc-200 bg-white px-5 py-3 dark:border-zinc-800 dark:bg-zinc-900">
         <div className="mx-auto flex max-w-4xl items-center justify-between">
           <h1 className="font-semibold">Prioritize</h1>
-          <button onClick={() => alert('settings')}>☰</button>
+          <button onClick={() => router.push('/settings')}>☰</button>
         </div>
       </header>
 
