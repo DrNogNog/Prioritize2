@@ -1,9 +1,16 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import * as Popover from '@radix-ui/react-popover';
-import { Paperclip } from 'lucide-react'; // or your emoji 📎
+import { Paperclip } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
+type Message = {
+  id: string;
+  text: string;
+  isOwn: boolean;
+  timestamp: number;
+};
 type InputBarProps = {
   input: string;
   setInput: React.Dispatch<React.SetStateAction<string>>;
@@ -16,7 +23,7 @@ type InputBarProps = {
   onGenerateReports?: () => void;
 };
 
-function InputBar({
+export function InputBar({
   input,
   setInput,
   onSend,
@@ -136,8 +143,6 @@ function InputBar({
     </div>
   );
 }
-
-export default InputBar;
 
 export default function ChatPage() {
   const router = useRouter()
