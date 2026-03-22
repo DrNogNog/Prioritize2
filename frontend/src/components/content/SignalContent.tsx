@@ -153,17 +153,17 @@ export default function SignalContent() {
                 {/* Stats row */}
                 <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
                 {/* Optional: thin progress bar — uncomment if the screenshot shows it */}
-                {opp.type === "high_okr" && (
-                    <div className="flex items-center gap-1.5">
-                    <div className="h-1 w-16 overflow-hidden rounded-full bg-gray-200/70">
-                        <div
-                        className="h-full bg-orange-500 transition-all duration-300"
-                        style={{ width: `${opp.okr}%` }}
-                        />
-                    </div>
-                    <span className="text-xs font-medium text-orange-700">{opp.okr}%</span>
-                    </div>
-                )}
+                 <div className="flex items-center gap-1.5">
+                  <div className="h-1 w-16 overflow-hidden rounded-full bg-gray-200/70">
+                    <div
+                      className="h-full transition-all duration-300"
+                      style={{
+                        width: `${opp.okr}%`,
+                        backgroundColor: opp.color,
+                      }}
+                    />
+                  </div>
+                </div>
 
                 {/* Main metadata line — order adjusted to match screenshot */}
                 <div className="flex flex-wrap items-center gap-x-6 gap-y-1">
@@ -177,11 +177,11 @@ export default function SignalContent() {
                     </div>
                     <div>
                     <span className="text-gray-500">LTV: </span>
-                    <span className="font-medium text-emerald-700">{opp.ltv}</span>
+                    <span className="font-medium text-gray-700">{opp.ltv}</span>
                     </div>
                     <div>
                     <span className="text-gray-500">OKR match: </span>
-                    <span className="font-medium text-orange-600">{opp.okr}%</span> {/* optional: orange for emphasis */}
+                    <span className="font-medium text-gray-700">{opp.okr}%</span> {/* optional: orange for emphasis */}
                     </div>
                 </div>
 
