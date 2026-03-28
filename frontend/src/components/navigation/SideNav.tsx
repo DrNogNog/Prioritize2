@@ -18,14 +18,12 @@ const SideNav: FC = () => {
   const pathname = usePathname();
 
   return (
-    <nav className="h-screen w-48 py-6 flex flex-col">
+    <nav className="h-screen w-48 py-6 flex flex-col bg-[#1a1a1a]">
       {/* Logo/Header */}
       <div className="mb-10 pb-2 border-b border-gray-700">
         <div className="flex items-center gap-2 pl-3">
-          <span className="font-bold text-gray-900">Prioritize</span>
-          <span className="text-xs uppercase tracking-wide text-gray-500">
-            PM Platform
-          </span>
+          <span className="font-bold text-white">Clarion</span>
+          <span className="text-xs uppercase tracking-wide text-gray-400">PM Platform</span>
         </div>
       </div>
 
@@ -39,10 +37,10 @@ const SideNav: FC = () => {
               <Link
                 href={item.href}
                 className={cn(
-                  "flex items-center w-auto px-4 py-2.5 text-sm transition-colors border-l-4",
+                  "flex items-center w-auto px-4 py-2.5 text-sm transition-colors",
                   isActive
-                    ? "bg-white text-black font-bold border-blue-700" // ← active is now blue
-                    : "bg-[#F5F4F0] text-gray-600 border-transparent hover:bg-gray-50 hover:text-gray-900 hover:border-gray-300"
+                    ? "text-white font-bold"
+                    : "text-gray-400 hover:text-white"
                 )}
               >
                 {item.label}
@@ -54,13 +52,13 @@ const SideNav: FC = () => {
 
       {/* Bottom user info */}
       <div className="mt-auto pt-6 border-t border-gray-700">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-semibold">
+        <div className="flex items-center gap-3 pl-3">
+          <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-semibold text-xs">
             PR
           </div>
           <div className="flex flex-col">
-            <span className="text-sm font-medium text-gray-900">Priya Raman</span>
-            <span className="text-xs text-gray-500">PM • Acme Corp</span>
+            <span className="text-sm font-medium text-white">Priya Raman</span>
+            <span className="text-xs text-gray-400">PM • Acme Corp</span>
           </div>
         </div>
       </div>
