@@ -134,22 +134,24 @@ export default function ContextOkrsContent() {
     <div className="min-h-screen bg-gray-50/40 px-6 py-8">
       <div className="mx-auto max-w-5xl space-y-8">
         {/* Header */}
-        <div className="rounded-md border border-[#D7D6D3] bg-[#F5F4F0] p-4">
-          {/* Top row */}
-          <div className="flex items-center justify-between">
             <h1 className="text-base font-medium text-gray-900">
               Context & OKRs
             </h1>
+            <span className="text-gray-400 text-sm">Define your company context and OKR hierarchy for the active period</span>
+         <div className="flex items-center gap-2">
+            <button className="rounded border border-[#D7D6D3] bg-white px-3 py-1.5 text-xs text-gray-700 hover:bg-gray-50">
+              Fetch from Jira
+            </button>
 
-            <div className="flex items-center gap-2">
-              <button className="rounded border border-[#D7D6D3] bg-white px-3 py-1.5 text-xs text-gray-700 hover:bg-gray-50">
-                Fetch from Jira
-              </button>
+            <button className="rounded border border-[#1B60B8] bg-[#E6F1FB] px-3 py-1.5 text-xs font-medium text-[#1B60B8] hover:scale-105 transition">
+              Save
+            </button>
+          </div>
+        <div className="rounded-md border border-[#D7D6D3] bg-[#F5F4F0] p-4">
+          {/* Top row */}
+          <div className="flex items-center justify-between">
 
-              <button className="rounded border border-[#1B60B8] bg-[#E6F1FB] px-3 py-1.5 text-xs font-medium text-[#1B60B8] hover:scale-105 transition">
-                Save
-              </button>
-            </div>
+           
           </div>
 
           {/* Meta row (matches Signal style) */}
