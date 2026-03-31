@@ -131,10 +131,10 @@ export default function ContextOkrsContent() {
 };
 
   return (
-    <div className="min-h-screen bg-gray-50/40 px-6 py-8">
-      <div className="mx-auto max-w-5xl space-y-8">
+    <div className="min-h-screen bg-[#EEEDE9] px-4 py-4">
+      <div className="space-y-4">
         {/* Header */}
-        <div className="rounded-md border border-[#D7D6D3] bg-[#F5F4F0] p-4">
+        <div className="rounded-md bg-[#F5F4F0] p-4">
           {/* Top row */}
           <div className="flex items-center justify-between">
             <h1 className="text-base font-medium text-gray-900">
@@ -185,7 +185,7 @@ export default function ContextOkrsContent() {
         {/* Main */}
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
           {/* Left */}
-          <div className="rounded-md border border-[#D7D6D3] bg-[#F5F4F0] p-4">
+          <div className="rounded-md bg-[#F5F4F0] p-4">
             <h2 className="mb-3 text-sm font-medium text-gray-800">
               Context details
             </h2>
@@ -230,7 +230,7 @@ export default function ContextOkrsContent() {
 </div>
 
           {/* Right */}
-          <div className="rounded-md border border-[#D7D6D3] bg-[#F5F4F0] p-4">
+          <div className="rounded-md bg-[#F5F4F0] p-4">
           {/* Header */}
             <div className="mb-3 flex items-center justify-between">
               <h2 className="text-sm font-medium text-gray-800">

@@ -17,7 +17,7 @@ export default function ContextOkrsLayout({ children }: { children: ReactNode })
         {/* Main: full scrollable height, bg-white for seamless look */}
         <main className="flex-1 overflow-y-auto bg-[#EEEDE9]">
           {/* Inner wrapper for content padding – slight left indent on desktop feels balanced */}
-          <div className="px-4 py-6 md:px-6 lg:px-8 bg-[#EEEDE9]">
+          <div className="bg-[#EEEDE9]">
             {children}
           </div>
         </main>
